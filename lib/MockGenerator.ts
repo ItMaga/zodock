@@ -16,6 +16,7 @@ import OptionalGenerator from './generators/OptionalGenerator';
 import NaNGenerator from './generators/NaNGenerator';
 import BigIntGenerator from './generators/BigIntGenerator';
 import SymbolGenerator from './generators/SymbolGenerator';
+import VoidGenerator from './generators/VoidGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -43,6 +44,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodNaN: NaNGenerator,
       ZodBigInt: BigIntGenerator,
       ZodSymbol: SymbolGenerator,
+      ZodVoid: VoidGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

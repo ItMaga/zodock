@@ -21,6 +21,7 @@ import EnumGenerator from './generators/EnumGenerator';
 import NativeEnumGenerator from './generators/NativeEnumGenerator';
 import NullableGenerator from './generators/NullableGenerator';
 import DiscriminatedUnionGenerator from './generators/DiscriminatedUnionGenerator';
+import IntersectionGenerator from './generators/IntersectionGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -53,6 +54,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodNativeEnum: NativeEnumGenerator,
       ZodNullable: NullableGenerator,
       ZodDiscriminatedUnion: DiscriminatedUnionGenerator,
+      ZodIntersection: IntersectionGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

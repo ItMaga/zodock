@@ -1,7 +1,7 @@
 {
   "name": "zodock",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "ItMaga <m-chemurziev@ya.ru>",
   "license": "MIT",
   "sideEffects": false,

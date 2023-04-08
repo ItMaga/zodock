@@ -9,5 +9,6 @@ module.exports = {
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
     ],
     'curly': ['error', 'multi-line', 'consistent'],
+    'prefer-destructuring': 'error',
   },
 };

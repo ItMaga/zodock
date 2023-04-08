@@ -32,7 +32,7 @@
     "lint": "eslint .",
     "prepublishOnly": "yarn build",
     "release": "bumpp && yarn publish",
-    "test": "vitest --watch --reporter verbose",
+    "test": "vitest --reporter verbose",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

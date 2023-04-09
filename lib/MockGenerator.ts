@@ -24,6 +24,7 @@ import DiscriminatedUnionGenerator from './generators/DiscriminatedUnionGenerato
 import IntersectionGenerator from './generators/IntersectionGenerator';
 import DefaultGenerator from './generators/DefaultGenerator';
 import CatchGenerator from './generators/CatchGenerator';
+import PromiseGenerator from './generators/PromiseGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -59,6 +60,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodIntersection: IntersectionGenerator,
       ZodDefault: DefaultGenerator,
       ZodCatch: CatchGenerator,
+      ZodPromise: PromiseGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

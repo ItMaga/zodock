@@ -32,3 +32,11 @@ const schema = z.object({
 
 createMock(schema); // { name: string, age: number }
 ```
+
+## TODO
+
+- ZodNever
+- ZodFunction
+- ZodLazy
+- ZodBranded
+- ZodPipeline

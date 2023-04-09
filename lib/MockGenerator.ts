@@ -27,6 +27,7 @@ import CatchGenerator from './generators/CatchGenerator';
 import PromiseGenerator from './generators/PromiseGenerator';
 import MapGenerator from './generators/MapGenerator';
 import SetGenerator from './generators/SetGenerator';
+import RecordGenerator from './generators/RecordGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -65,6 +66,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodPromise: PromiseGenerator,
       ZodMap: MapGenerator,
       ZodSet: SetGenerator,
+      ZodRecord: RecordGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

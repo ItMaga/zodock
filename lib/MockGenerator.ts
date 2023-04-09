@@ -23,6 +23,7 @@ import NullableGenerator from './generators/NullableGenerator';
 import DiscriminatedUnionGenerator from './generators/DiscriminatedUnionGenerator';
 import IntersectionGenerator from './generators/IntersectionGenerator';
 import DefaultGenerator from './generators/DefaultGenerator';
+import CatchGenerator from './generators/CatchGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -57,6 +58,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodDiscriminatedUnion: DiscriminatedUnionGenerator,
       ZodIntersection: IntersectionGenerator,
       ZodDefault: DefaultGenerator,
+      ZodCatch: CatchGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

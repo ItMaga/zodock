@@ -38,4 +38,3 @@ createMock(schema); // { name: string, age: number }
 - ZodNever
 - ZodFunction
 - ZodLazy
-- ZodBranded

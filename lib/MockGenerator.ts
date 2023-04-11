@@ -29,6 +29,7 @@ import MapGenerator from './generators/MapGenerator';
 import SetGenerator from './generators/SetGenerator';
 import RecordGenerator from './generators/RecordGenerator';
 import PipelineGenerator from './generators/PipelineGenerator';
+import BrandedGenerator from './generators/BrandedGenerator';
 
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
@@ -69,6 +70,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodSet: SetGenerator,
       ZodRecord: RecordGenerator,
       ZodPipeline: PipelineGenerator,
+      ZodBranded: BrandedGenerator,
     };
     if (this.schema._def.typeName in generatorMap) {
       this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();

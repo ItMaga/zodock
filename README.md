@@ -36,5 +36,4 @@ createMock(schema); // { name: string, age: number }
 ## TODO
 
 - ZodNever
-- ZodFunction
 - ZodLazy

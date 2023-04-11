@@ -39,4 +39,3 @@ createMock(schema); // { name: string, age: number }
 - ZodFunction
 - ZodLazy
 - ZodBranded
-- ZodPipeline

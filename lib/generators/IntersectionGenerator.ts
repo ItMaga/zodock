@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 import MockGenerator from '../MockGenerator';
 import type BaseGenerator from './BaseGenerator';
 
@@ -12,8 +12,10 @@ export default class IntersectionGenerator<T extends z.ZodIntersection<z.ZodType
         const sharedOptions = leftDef.options.filter((leftOption: z.ZodTypeAny) => {
           return rightDef.options.some((rightOption: z.ZodTypeAny) => rightOption._def.typeName === leftOption._def.typeName);
         });
+        const randomIndex = Math.floor(Math.random() * sharedOptions.length);
+        const randomOption = sharedOptions[randomIndex];
 
-        const mockGenerator = new MockGenerator(z.union(sharedOptions));
+        const mockGenerator = new MockGenerator(randomOption);
         return mockGenerator.generate();
       }
     }

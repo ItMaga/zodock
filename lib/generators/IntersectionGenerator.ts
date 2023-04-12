@@ -4,10 +4,13 @@ import type BaseGenerator from './BaseGenerator';
 
 export default class IntersectionGenerator<T extends z.ZodIntersection<z.ZodTypeAny, z.ZodTypeAny>> implements BaseGenerator<T> {
   public generate(schema: T) {
-    if ('typeName' in schema._def.left && 'typeName' in schema._def.right) {
-      if (schema._def.left.typeName === 'ZodUnion' && schema._def.right.typeName === 'ZodUnion') {
-        const sharedOptions = schema._def.left._def.options.filter((leftOption: z.ZodTypeAny) => {
-          return schema._def.right._def.options.some((rightOption: z.ZodTypeAny) => rightOption._def.typeName === leftOption._def.typeName);
+    const { _def: leftDef } = schema._def.left;
+    const { _def: rightDef } = schema._def.right;
+
+    if ('typeName' in leftDef && 'typeName' in rightDef) {
+      if (leftDef.typeName === 'ZodUnion' && rightDef.typeName === 'ZodUnion') {
+        const sharedOptions = leftDef.options.filter((leftOption: z.ZodTypeAny) => {
+          return rightDef.options.some((rightOption: z.ZodTypeAny) => rightOption._def.typeName === leftOption._def.typeName);
         });
 
         const mockGenerator = new MockGenerator(z.union(sharedOptions));

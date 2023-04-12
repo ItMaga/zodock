@@ -5,7 +5,7 @@ export default class DateGenerator<T extends z.ZodDate> implements BaseGenerator
   public generate(schema: T) {
     let date: z.infer<T> = new Date();
 
-    if (schema._def.checks?.length > 0) {
+    if (schema._def.checks && schema._def.checks.length > 0) {
       for (const check of schema._def.checks) {
         switch (check.kind) {
           case 'min':

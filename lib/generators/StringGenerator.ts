@@ -6,7 +6,7 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
   public generate(schema: T) {
     let string: z.infer<T> = this.getRandomString();
 
-    if (schema._def.checks?.length > 0) {
+    if (schema._def.checks && schema._def.checks.length > 0) {
       for (const check of schema._def.checks) {
         switch (check.kind) {
           case 'uuid':

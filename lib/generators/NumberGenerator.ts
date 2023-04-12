@@ -5,7 +5,7 @@ export default class NumberGenerator<T extends z.ZodNumber> implements BaseGener
   public generate(schema: T) {
     let number: z.infer<T> = 1;
 
-    if (schema._def.checks?.length > 0) {
+    if (schema._def.checks && schema._def.checks.length > 0) {
       for (const check of schema._def.checks) {
         switch (check.kind) {
           case 'int':

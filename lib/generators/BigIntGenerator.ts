@@ -5,7 +5,7 @@ export default class BigIntGenerator<T extends z.ZodBigInt> implements BaseGener
   public generate(schema: T) {
     let bigInt: z.infer<T> = BigInt(1);
 
-    if (schema._def.checks?.length > 0) {
+    if (schema._def.checks && schema._def.checks.length > 0) {
       for (const check of schema._def.checks) {
         switch (check.kind) {
           case 'min':

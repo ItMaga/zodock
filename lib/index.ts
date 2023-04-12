@@ -7,7 +7,7 @@ function createMock<Schema extends z.ZodTypeAny>(schema: Schema): z.infer<typeof
   }
 
   const mockGenerator = new MockGenerator(schema);
-  return mockGenerator.generate();
+  return schema.parse(mockGenerator.generate());
 }
 
 export { createMock };

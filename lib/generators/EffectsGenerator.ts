@@ -4,8 +4,11 @@ import type BaseGenerator from './BaseGenerator';
 
 export default class EffectsGenerator<T extends z.ZodEffects<any>> implements BaseGenerator<T> {
   public generate(schema: T) {
+    if (schema._def.effect.type === 'refinement') {
+      schema._def.effect.refinement = () => true;
+    }
+
     const mockGenerator = new MockGenerator(schema.innerType());
-    const generated = mockGenerator.generate();
-    return schema.parse(generated);
+    return mockGenerator.generate();
   }
 }

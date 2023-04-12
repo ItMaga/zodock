@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import type { z } from 'zod';
 import type BaseGenerator from './BaseGenerator';
 
@@ -10,7 +9,7 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
       for (const check of schema._def.checks) {
         switch (check.kind) {
           case 'uuid':
-            string = randomUUID();
+            string = this.getRandomUUID();
             break;
           case 'email':
             string = this.getRandomEmail();
@@ -40,5 +39,13 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
 
   public getRandomString(): string {
     return Array.from({ length: 50 }, () => Math.floor(Math.random() * 36).toString(36)).join('');
+  }
+
+  public getRandomUUID(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
   }
 }

@@ -95,7 +95,7 @@ export const api = {
 ## TODO
 
 - ZodNever
-- ZodLazy
+- ZodLazy (recursive types)
 
 ## License
 

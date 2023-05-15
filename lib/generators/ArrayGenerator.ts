@@ -1,5 +1,6 @@
 import type { z } from 'zod';
 import MockGenerator from '../MockGenerator';
+import { DepthLimitError } from '../errors/DepthLimitError';
 import type BaseGenerator from './BaseGenerator';
 
 const DEFAULT_LENGTH = 3;
@@ -16,7 +17,15 @@ export default class ArrayGenerator<T extends z.ZodArray<any>> implements BaseGe
       length = schema._def.exactLength.value;
     }
 
-    const mockGenerator = new MockGenerator(schema._def.type);
-    return Array.from({ length }, () => mockGenerator.generate());
+    try {
+      const mockGenerator = new MockGenerator(schema.element);
+      return Array.from({ length }, () => mockGenerator.generate());
+    }
+    catch (e) {
+      if (e instanceof DepthLimitError) {
+        return [];
+      }
+      throw e;
+    }
   }
 }

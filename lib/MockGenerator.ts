@@ -32,10 +32,13 @@ import PipelineGenerator from './generators/PipelineGenerator';
 import BrandedGenerator from './generators/BrandedGenerator';
 import FunctionGenerator from './generators/FunctionGenerator';
 import LazyGenerator from './generators/LazyGenerator';
+import { DepthLimitError } from './errors/DepthLimitError';
 
+const _schemasCache = new WeakMap<z.ZodTypeAny, any>();
 export default class MockGenerator<T extends z.ZodTypeAny> {
   private generator: BaseGenerator<TypeOf<T>>;
   private schema: T;
+  private readonly MAX_DEPTH = 3;
 
   constructor(schema: T) {
     this.schema = schema;
@@ -86,6 +89,32 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
   }
 
   public generate(): z.infer<T> {
-    return this.generator.generate(this.schema);
+    this.incrementRecursionCount();
+
+    try {
+      const generated = this.generator.generate(this.schema);
+      return generated;
+    }
+    finally {
+      this.decrementRecursionCount();
+    }
+  }
+
+  private incrementRecursionCount(): void {
+    const recursionCount = _schemasCache.get(this.schema) ?? 0;
+    if (recursionCount > this.MAX_DEPTH) {
+      throw new DepthLimitError();
+    }
+
+    _schemasCache.set(this.schema, recursionCount + 1);
+  }
+
+  private decrementRecursionCount(): void {
+    const recursionCount = _schemasCache.get(this.schema) ?? 0;
+    _schemasCache.set(this.schema, recursionCount - 1);
+  }
+
+  public reset(): void {
+    _schemasCache.delete(this.schema);
   }
 }

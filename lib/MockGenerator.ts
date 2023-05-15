@@ -113,8 +113,4 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
     const recursionCount = _schemasCache.get(this.schema) ?? 0;
     _schemasCache.set(this.schema, recursionCount - 1);
   }
-
-  public reset(): void {
-    _schemasCache.delete(this.schema);
-  }
 }

@@ -1,6 +1,9 @@
 # Zodock
 
-[![NPM version](https://img.shields.io/npm/v/zodock?color=2f68b7&label=)](https://www.npmjs.com/package/zodock)
+![npm](https://img.shields.io/npm/v/zodock?color=2f68b7)
+![npm bundle size](https://img.shields.io/bundlephobia/min/zodock?color=2f68b7)
+![NPM](https://img.shields.io/npm/l/zodock)
+![npm](https://img.shields.io/npm/dt/zodock)
 
 The mocking library for TypeScript-first schema validation [Zod](https://zod.dev/), creates a mock object based on the schema. It makes it easy to create mock data for testing purposes, to create mock data for the API request or response, and etc.
 

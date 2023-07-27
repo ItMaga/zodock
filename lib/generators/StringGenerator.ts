@@ -29,6 +29,9 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
           case 'startsWith':
             string = `${check.value}${string}`;
             break;
+          case 'endsWith':
+            string = `${string}${check.value}`;
+            break;
           case 'min':
           case 'max':
           case 'length':

@@ -63,4 +63,9 @@ describe('String', () => {
 
     expect(schema);
   });
+  test('endsWith', () => {
+    const schema = z.string().endsWith('__MARK__');
+
+    expect(schema);
+  });
 });

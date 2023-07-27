@@ -58,4 +58,9 @@ describe('String', () => {
 
     expect(schema);
   });
+  test('startsWith', () => {
+    const schema = z.string().startsWith('__MARK__');
+
+    expect(schema);
+  });
 });

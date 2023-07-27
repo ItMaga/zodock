@@ -54,9 +54,11 @@ describe('String', () => {
     expect(schema);
   });
   test('ip', () => {
-    const schema = z.string().ip();
+    const schemaV4 = z.string().ip({ version: 'v4' });
+    const schemaV6 = z.string().ip({ version: 'v6' });
 
-    expect(schema);
+    expect(schemaV4);
+    expect(schemaV6);
   });
   test('startsWith', () => {
     const schema = z.string().startsWith('__MARK__');

@@ -24,7 +24,7 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
             string = '😀';
             break;
           case 'ip':
-            string = this.getRandomIP();
+            string = this.getRandomIP(check.version!);
             break;
           case 'includes':
           case 'startsWith':
@@ -62,7 +62,10 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
     });
   }
 
-  public getRandomIP(): string {
-    return Array.from({ length: 4 }, () => Math.floor(Math.random() * 256)).join('.');
+  public getRandomIP(version: 'v4' | 'v6'): string {
+    if (version === 'v4') {
+      return [0, 0, 0, 0].map(() => Math.floor(Math.random() * 256)).join('.');
+    }
+    return [0, 0, 0, 0, 0, 0, 0, 0].map(() => Math.floor(Math.random() * 65536).toString(16)).join(':');
   }
 }

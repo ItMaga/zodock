@@ -26,6 +26,7 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
           case 'ip':
             string = this.getRandomIP();
             break;
+          case 'includes':
           case 'startsWith':
             string = `${check.value}${string}`;
             break;

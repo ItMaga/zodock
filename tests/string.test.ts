@@ -68,4 +68,9 @@ describe('String', () => {
 
     expect(schema);
   });
+  test('includes', () => {
+    const schema = z.string().includes('__MARK__');
+
+    expect(schema);
+  });
 });

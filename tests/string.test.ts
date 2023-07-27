@@ -48,4 +48,9 @@ describe('String', () => {
 
     expect(schema);
   });
+  test('emoji', () => {
+    const schema = z.string().emoji();
+
+    expect(schema);
+  });
 });

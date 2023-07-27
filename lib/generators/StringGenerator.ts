@@ -20,6 +20,9 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
           case 'url':
             string = `https://${this.getRandomString()}.com`;
             break;
+          case 'emoji':
+            string = '😀';
+            break;
           case 'min':
           case 'max':
           case 'length':

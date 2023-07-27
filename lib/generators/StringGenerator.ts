@@ -23,6 +23,9 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
           case 'emoji':
             string = '😀';
             break;
+          case 'ip':
+            string = this.getRandomIP();
+            break;
           case 'min':
           case 'max':
           case 'length':
@@ -50,5 +53,9 @@ export default class StringGenerator<T extends z.ZodString> implements BaseGener
       const v = c === 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
+  }
+
+  public getRandomIP(): string {
+    return Array.from({ length: 4 }, () => Math.floor(Math.random() * 256)).join('.');
   }
 }

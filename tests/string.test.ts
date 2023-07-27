@@ -53,4 +53,9 @@ describe('String', () => {
 
     expect(schema);
   });
+  test('ip', () => {
+    const schema = z.string().ip();
+
+    expect(schema);
+  });
 });

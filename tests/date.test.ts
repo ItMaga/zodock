@@ -1,6 +1,5 @@
 import { describe, test } from 'vitest';
 import { z } from 'zod';
-import { endOfTomorrow, endOfYesterday } from 'date-fns';
 import { expect } from './utils/expect';
 
 describe('Date', () => {
@@ -10,12 +9,22 @@ describe('Date', () => {
     expect(schema);
   });
   test('min', () => {
-    const schema = z.date().min(endOfTomorrow());
+    const now = new Date();
+    const endOfTomorrow = new Date(0);
+    endOfTomorrow.setFullYear(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    endOfTomorrow.setHours(23, 59, 59, 999);
+
+    const schema = z.date().min(endOfTomorrow);
 
     expect(schema);
   });
   test('max', () => {
-    const schema = z.date().max(endOfYesterday());
+    const now = new Date();
+    const endOfYesterday = new Date(0);
+    endOfYesterday.setFullYear(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    endOfYesterday.setHours(23, 59, 59, 999);
+
+    const schema = z.date().max(endOfYesterday);
 
     expect(schema);
   });

@@ -2,7 +2,7 @@ import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
   entries: [
-    'lib/index',
+    'src/index',
   ],
   declaration: true,
   clean: true,

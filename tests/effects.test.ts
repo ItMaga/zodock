@@ -1,6 +1,6 @@
 import { describe, test, expect as viExpect } from 'vitest';
 import { z } from 'zod';
-import { createMock } from '../lib';
+import { createMock } from '../src';
 import { expect } from './utils/expect';
 
 describe('Effects', () => {

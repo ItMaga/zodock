@@ -32,6 +32,7 @@ import PipelineGenerator from './generators/PipelineGenerator';
 import BrandedGenerator from './generators/BrandedGenerator';
 import FunctionGenerator from './generators/FunctionGenerator';
 import LazyGenerator from './generators/LazyGenerator';
+import ReadonlyGenerator from './generators/ReadonlyGenerator';
 import { DepthLimitError } from './errors/DepthLimitError';
 
 const _schemasCache = new WeakMap<z.ZodTypeAny, any>();
@@ -78,6 +79,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
       ZodBranded: BrandedGenerator,
       ZodFunction: FunctionGenerator,
       ZodLazy: LazyGenerator,
+      ZodReadonly: ReadonlyGenerator,
     };
 
     if (this.schema._def.typeName in generatorMap) {

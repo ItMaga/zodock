@@ -1,10 +1,10 @@
 import type { z } from 'zod';
 import MockGenerator from '../MockGenerator';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class SetGenerator<T extends z.ZodSet> implements BaseGenerator<T> {
+export default class SetGenerator<T extends z.ZodSet> extends BaseGenerator<T> {
   public generate(schema: T) {
-    const valueGenerator = new MockGenerator(schema._def.valueType);
+    const valueGenerator = new MockGenerator(schema._def.valueType, { extensions: this.extensions });
     const generatedValue = valueGenerator.generate();
 
     if (schema._def.minSize) {

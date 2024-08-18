@@ -1,8 +1,8 @@
 import type { z } from 'zod';
 import MockGenerator from '../MockGenerator';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class IntersectionGenerator<T extends z.ZodIntersection<z.ZodTypeAny, z.ZodTypeAny>> implements BaseGenerator<T> {
+export default class IntersectionGenerator<T extends z.ZodIntersection<z.ZodTypeAny, z.ZodTypeAny>> extends BaseGenerator<T> {
   public generate(schema: T) {
     const { _def: leftDef } = schema._def.left;
     const { _def: rightDef } = schema._def.right;
@@ -15,13 +15,13 @@ export default class IntersectionGenerator<T extends z.ZodIntersection<z.ZodType
         const randomIndex = Math.floor(Math.random() * sharedOptions.length);
         const randomOption = sharedOptions[randomIndex];
 
-        const mockGenerator = new MockGenerator(randomOption);
+        const mockGenerator = new MockGenerator(randomOption, { extensions: this.extensions });
         return mockGenerator.generate();
       }
     }
 
-    const leftGenerated = new MockGenerator(schema._def.left).generate();
-    const rightGenerated = new MockGenerator(schema._def.right).generate();
+    const leftGenerated = new MockGenerator(schema._def.left, { extensions: this.extensions }).generate();
+    const rightGenerated = new MockGenerator(schema._def.right, { extensions: this.extensions }).generate();
     const merged = this.mergeValues(leftGenerated, rightGenerated);
     return merged;
   }

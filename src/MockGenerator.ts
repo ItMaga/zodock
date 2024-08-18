@@ -1,4 +1,4 @@
-import type { TypeOf, ZodFirstPartyTypeKind, z } from 'zod';
+import type { ZodFirstPartyTypeKind, z } from 'zod';
 import StringGenerator from './generators/StringGenerator';
 import type BaseGenerator from './generators/BaseGenerator';
 import NumberGenerator from './generators/NumberGenerator';
@@ -34,15 +34,18 @@ import FunctionGenerator from './generators/FunctionGenerator';
 import LazyGenerator from './generators/LazyGenerator';
 import ReadonlyGenerator from './generators/ReadonlyGenerator';
 import { DepthLimitError } from './errors/DepthLimitError';
+import type { GeneratorOptions } from './types';
 
 const _schemasCache = new WeakMap<z.ZodTypeAny, any>();
 export default class MockGenerator<T extends z.ZodTypeAny> {
-  private generator: BaseGenerator<TypeOf<T>>;
+  private generator: BaseGenerator<T>;
   private schema: T;
+  private options?: GeneratorOptions<T>;
   private readonly MAX_DEPTH = 3;
 
-  constructor(schema: T) {
+  constructor(schema: T, options?: GeneratorOptions<T>) {
     this.schema = schema;
+    this.options = options;
 
     const generatorMap: Partial<Record<ZodFirstPartyTypeKind, any>> = {
       ZodString: StringGenerator,
@@ -83,7 +86,7 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
     };
 
     if (this.schema._def.typeName in generatorMap) {
-      this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind]();
+      this.generator = new generatorMap[this.schema._def.typeName as ZodFirstPartyTypeKind](this.options);
       return;
     }
 
@@ -94,6 +97,11 @@ export default class MockGenerator<T extends z.ZodTypeAny> {
     this.incrementRecursionCount();
 
     try {
+      const satisfiesExtension = this.generator.satisfiesExtension(this.schema);
+      if (satisfiesExtension) {
+        return satisfiesExtension.generate();
+      }
+
       const generated = this.generator.generate(this.schema);
       return generated;
     }

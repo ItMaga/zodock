@@ -1,8 +1,7 @@
 import type { z } from 'zod';
 
-interface ZodConstructor<TSchema extends z.ZodTypeAny> {
-
-  new(...args: any[]): TSchema
+interface ZodConstructor<T extends z.ZodTypeAny> {
+  new(...args: any[]): T
 }
 
 interface Options<T extends z.ZodTypeAny> {

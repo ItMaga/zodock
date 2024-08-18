@@ -1,7 +1,7 @@
 import type { z } from 'zod';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class NumberGenerator<T extends z.ZodNumber> implements BaseGenerator<T> {
+export default class NumberGenerator<T extends z.ZodNumber> extends BaseGenerator<T> {
   public generate(schema: T) {
     let number: z.infer<T> = this.randomInt();
 

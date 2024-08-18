@@ -1,7 +1,7 @@
 import type { z } from 'zod';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class DateGenerator<T extends z.ZodDate> implements BaseGenerator<T> {
+export default class DateGenerator<T extends z.ZodDate> extends BaseGenerator<T> {
   public generate(schema: T) {
     let date: z.infer<T> = new Date();
 

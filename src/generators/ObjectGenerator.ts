@@ -1,14 +1,14 @@
 import type { ZodRawShape, z } from 'zod';
 import MockGenerator from '../MockGenerator';
 import { DepthLimitError } from '../errors/DepthLimitError';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class ObjectGenerator<T extends ZodRawShape, U extends z.ZodObject<T>> implements BaseGenerator<U> {
+export default class ObjectGenerator<T extends ZodRawShape, U extends z.ZodObject<T>> extends BaseGenerator<U> {
   public generate(schema: U) {
     const generated: z.infer<U> = {} as z.infer<U>;
     Object.entries(schema._def.shape()).forEach(([key, value]) => {
       try {
-        const mockGenerator = new MockGenerator(value);
+        const mockGenerator = new MockGenerator(value, { extensions: this.extensions });
         generated[key as keyof z.infer<U>] = mockGenerator.generate();
       }
       catch (e) {

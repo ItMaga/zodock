@@ -1,7 +1,7 @@
 import type { z } from 'zod';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class UndefinedGenerator<T extends z.ZodUndefined> implements BaseGenerator<T> {
+export default class UndefinedGenerator<T extends z.ZodUndefined> extends BaseGenerator<T> {
   public generate() {
     return undefined;
   }

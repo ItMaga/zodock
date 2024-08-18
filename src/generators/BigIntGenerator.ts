@@ -1,7 +1,7 @@
 import type { z } from 'zod';
-import type BaseGenerator from './BaseGenerator';
+import BaseGenerator from './BaseGenerator';
 
-export default class BigIntGenerator<T extends z.ZodBigInt> implements BaseGenerator<T> {
+export default class BigIntGenerator<T extends z.ZodBigInt> extends BaseGenerator<T> {
   public generate(schema: T) {
     let bigInt: z.infer<T> = BigInt(1);
 
